@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
                 DBHelper db = new DBHelper(MainActivity.this);
                 int year = Integer.parseInt(etYear.getText().toString());
-                int star = Integer.parseInt(etYear.getText().toString());
+                int star = Integer.parseInt(rb.getText().toString());
                 db.insertSong(etSong.getText().toString(), etSingers.getText().toString(), year, star);
                 db.close();
             }

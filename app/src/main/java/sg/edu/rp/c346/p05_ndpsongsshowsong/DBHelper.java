@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "simplenotes.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String TABLE_SONG = "song";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_TITLE = "title";
@@ -46,7 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SONG);
-
+        onCreate(db);
     }
 
     public long insertSong(String title, String singer, int year, int stars) {
@@ -141,12 +141,12 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Integer> years = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT DISTINCT" + COLUMN_YEAR + " FROM " + TABLE_SONG;
+        String selectQuery = "SELECT DISTINCT " + COLUMN_YEAR + " FROM " + TABLE_SONG;
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                int year = cursor.getInt(1);
+                int year = cursor.getInt(0);
                 years.add(year);
 
             } while (cursor.moveToNext());
