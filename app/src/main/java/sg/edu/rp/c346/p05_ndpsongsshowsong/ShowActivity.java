@@ -93,7 +93,7 @@ public class ShowActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == 9) {
             ca.notifyDataSetChanged();
             sl.clear();
-            
+            DBHelper dbh = new DBHelper(ShowActivity.this);
             sl = dbh.getAllSong();
         }
 

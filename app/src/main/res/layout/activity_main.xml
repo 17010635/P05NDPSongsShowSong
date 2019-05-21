@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Enter year of release here"
-        android:inputType="textPersonName" />
+        android:inputType="number" />
 
     <RadioGroup
         android:id="@+id/radioGroupStars"
