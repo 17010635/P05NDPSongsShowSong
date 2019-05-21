@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,11 +37,36 @@ public class MainActivity extends AppCompatActivity {
                 int selectedButtonId = rg.getCheckedRadioButtonId();
                 RadioButton rb = findViewById(selectedButtonId);
 
+                if(etSong.getText().toString().equalsIgnoreCase("")){
+                    Toast.makeText(MainActivity.this, "Add A Song Title", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(etSingers.getText().toString().equalsIgnoreCase("")){
+                    Toast.makeText(MainActivity.this, "Add A Singer", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(etYear.getText().toString().equalsIgnoreCase("")){
+                    Toast.makeText(MainActivity.this, "Add A Year", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(rb==null){
+                    Toast.makeText(MainActivity.this, "Choose a ratings", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+
+
                 DBHelper db = new DBHelper(MainActivity.this);
                 int year = Integer.parseInt(etYear.getText().toString());
                 int star = Integer.parseInt(rb.getText().toString());
                 db.insertSong(etSong.getText().toString(), etSingers.getText().toString(), year, star);
                 db.close();
+
+
+                Toast.makeText(MainActivity.this, "Song Added", Toast.LENGTH_SHORT).show();
+
+
             }
         });
 

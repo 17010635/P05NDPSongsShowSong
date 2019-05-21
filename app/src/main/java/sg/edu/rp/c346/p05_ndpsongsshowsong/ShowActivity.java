@@ -9,22 +9,27 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ShowActivity extends AppCompatActivity {
+public class ShowActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     ListView lvSongs;
     Button btn5Stars;
     Spinner spnYear;
     ArrayList<Song> sl;
     CustomAdapter ca;
+    ArrayList<Integer> years;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
+
+
+        Toast.makeText(ShowActivity.this, "Showing Songs", Toast.LENGTH_SHORT).show();
 
         lvSongs = findViewById(R.id.lvSongs);
         btn5Stars = findViewById(R.id.btn5Stars);
@@ -34,6 +39,8 @@ public class ShowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DBHelper dbh = new DBHelper(ShowActivity.this);
+                sl.clear();
+                sl.addAll(dbh.getAllSong());
                 ArrayList<Song> temp = new ArrayList<>();
 
                 for (int i = 0; i < sl.size(); i++) {
@@ -52,8 +59,8 @@ public class ShowActivity extends AppCompatActivity {
         });
 
         ArrayList<Integer> getYears = new ArrayList<>();
-        ArrayList<Integer> years = new ArrayList<>();
-
+        years = new ArrayList<>();
+        years.add(0);
         DBHelper dbh = new DBHelper(ShowActivity.this);
         getYears = dbh.getYear();
         for (int i = 0; i < getYears.size(); i++) {
@@ -83,7 +90,7 @@ public class ShowActivity extends AppCompatActivity {
             }
         });
 
-
+        spnYear.setOnItemSelectedListener(this);
     }
 
     protected void onActivityResult(int requestCode, int resultCode,
@@ -91,12 +98,38 @@ public class ShowActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == 9) {
-            ca.notifyDataSetChanged();
+            Toast.makeText(ShowActivity.this, "Updating list", Toast.LENGTH_SHORT).show();
+
             sl.clear();
             DBHelper dbh = new DBHelper(ShowActivity.this);
-            sl = dbh.getAllSong();
+            sl.addAll(dbh.getAllSong());
+            ca.notifyDataSetChanged();
+            dbh.close();
+
         }
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        DBHelper dbh = new DBHelper(ShowActivity.this);
+        int selectedYear = years.get(position);
+        if(selectedYear == 0){
+            sl.clear();
+            sl.addAll(dbh.getAllSong());
+            ca.notifyDataSetChanged();
+            dbh.close();
+            return;
+        }
+        sl.clear();
+
+        sl.addAll(dbh.getAllYear(selectedYear));
+        ca.notifyDataSetChanged();
+        dbh.close();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        return;
+    }
 }
