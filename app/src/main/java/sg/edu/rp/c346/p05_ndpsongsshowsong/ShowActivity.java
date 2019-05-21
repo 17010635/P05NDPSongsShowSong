@@ -42,7 +42,7 @@ public class ShowActivity extends AppCompatActivity {
         getYears = dbh.getYear();
         for (int i = 0; i < getYears.size(); i++) {
             years.add(i);
-        }
+        } 
 
         ArrayAdapter<Integer> aa = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, years);
         spnYear.setAdapter(aa);
