@@ -18,8 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Enter song title here"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:selectAllOnFocus="false" />
 
     <TextView
         android:id="@+id/textView3"
@@ -32,8 +33,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="Enter singer's name here"
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/textView4"
@@ -46,8 +47,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="Enter year of release here"
+        android:inputType="textPersonName" />
 
     <RadioGroup
         android:id="@+id/radioGroupStars"
@@ -60,40 +61,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="RadioButton"
-            tools:text="1" />
+            android:text="1" />
 
         <RadioButton
             android:id="@+id/radioButton4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="RadioButton"
-            tools:text="2" />
+            android:text="2" />
 
         <RadioButton
             android:id="@+id/radioButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="RadioButton"
-            tools:text="3" />
+            android:text="3" />
 
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="RadioButton"
-            tools:text="4" />
+            android:text="4" />
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="RadioButton"
-            tools:text="5" />
+            android:text="5" />
 
     </RadioGroup>
 
