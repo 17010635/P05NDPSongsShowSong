@@ -62,28 +62,28 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-//    public ArrayList<String> getAllNotes() {
-//        ArrayList<String> song = new ArrayList<String>();
-//
-//        String selectQuery = "SELECT " + COLUMN_ID + ","
-//                + COLUMN_TITLE + "," + COLUMN_SINGERS + "," + COLUMN_YEAR + "," + COLUMN_STARS + " FROM " + TABLE_SONG;
-//
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(selectQuery, null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                int id = cursor.getInt(0);
-//                String title = cursor.getString(1);
-//                String singers = cursor.getString(2);
-//                int year = cursor.getInt(3);
-//                int star = cursor.getInt(4);
-//                song.add("ID:" + id + ", " + content);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        db.close();
-//        return notes;
-//    }
+    public ArrayList<String> getAllSong() {
+        ArrayList<String> song = new ArrayList<String>();
+
+        String selectQuery = "SELECT " + COLUMN_ID + ","
+                + COLUMN_TITLE + "," + COLUMN_SINGERS + "," + COLUMN_YEAR + "," + COLUMN_STARS + " FROM " + TABLE_SONG;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String title = cursor.getString(1);
+                String singers = cursor.getString(2);
+                int year = cursor.getInt(3);
+                int star = cursor.getInt(4);
+                song.add("ID:" + id + ", " + content);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return notes;
+    }
 
     public int updateSong(Song data){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -113,7 +113,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns= {COLUMN_ID, COLUMN_TITLE, COLUMN_SINGERS, COLUMN_YEAR, COLUMN_STARS};
-        String condition = COLUMN_TITLE + "," + COLUMN_SINGERS + "," + COLUMN_YEAR +"," + COLUMN_STARS + " Like ?";
+        String condition = COLUMN_YEAR + " Like ?";
         String[] args = { "%" +  keyword + "%"};
         Cursor cursor = db.query(TABLE_SONG, columns, condition, args,
                 null, null, null, null);
@@ -134,5 +134,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return songs;
 
     }
+
 
 }
