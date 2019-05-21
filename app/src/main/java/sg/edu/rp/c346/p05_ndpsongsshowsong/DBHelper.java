@@ -110,13 +110,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<Song> getAllSong(String keyword) {
+    public ArrayList<Song> getAllYear(int y) {
         ArrayList<Song> songs = new ArrayList<Song>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns= {COLUMN_ID, COLUMN_TITLE, COLUMN_SINGERS, COLUMN_YEAR, COLUMN_STARS};
         String condition = COLUMN_YEAR + " Like ?";
-        String[] args = { "%" +  keyword + "%"};
+        String[] args = { "%" +  y + "%"};
         Cursor cursor = db.query(TABLE_SONG, columns, condition, args,
                 null, null, null, null);
 
@@ -137,5 +137,23 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public ArrayList<Integer> getYear(){
+        ArrayList<Integer> years = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT DISTINCT" + COLUMN_YEAR + " FROM " + TABLE_SONG;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int year = cursor.getInt(1);
+                years.add(year);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return years;
+    }
 
 }

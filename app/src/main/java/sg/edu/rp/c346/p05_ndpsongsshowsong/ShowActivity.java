@@ -9,11 +9,15 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+
 public class ShowActivity extends AppCompatActivity {
 
     ListView lvSongs;
     Button btn5Stars;
     Spinner spnYear;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,20 @@ public class ShowActivity extends AppCompatActivity {
 
             }
         });
+
+        ArrayList<Integer> getYears = new ArrayList<>();
+        ArrayList<Integer> years = new ArrayList<>();
+
+        DBHelper dbh = new DBHelper(ShowActivity.this);
+        getYears = dbh.getYear();
+        for (int i = 0; i < getYears.size(); i++) {
+            years.add(i);
+        }
+
+        ArrayAdapter<Integer> aa = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, years);
+        spnYear.setAdapter(aa);
+
+
 
 
     }
